@@ -39,7 +39,7 @@
 
 こちらのXMLファイルは実装はしていませんが、LinearLayoutを使用して、レイアウトを作成してみました。
 
-[linearlayout.xml](https://github.com/hirotomo-yamazaki/Lemonade/blob/d16543d40978eca1512a36fc4fccf5a44c9622cc/app/src/main/res/layout/linearlayout.xml)
+[linearlayout.xml](https://github.com/hirotomo-yamazaki/LemonadeApp/blob/f01fe63bf26c58596122afbfa3339d1a551d8c0a/app/src/main/res/layout/linearlayout.xml)
 
 
 
