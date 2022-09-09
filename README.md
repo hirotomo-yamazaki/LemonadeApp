@@ -14,7 +14,7 @@
 
 ***activity_main.xml*** ： TextView, ImageView, ConstraintLayout, LinearLayout, match_parent, wrap_parent
 
-- 各View要素をConstraintLayoutで配置を決定することを学び、思うように配置極めができるようになりました。
+- 各View要素をConstraintLayoutで配置を決定することを学び、思うように配置決めができるようになりました。
 - LinearLayoutはView要素をグループ化して、扱っていくのだと学習しました。
 
 <br>
