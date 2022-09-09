@@ -33,7 +33,7 @@
 
 ■コーディングを行ったファイル
 ---
-[MainActivity.kt](https://github.com/hirotomo-yamazaki/Lemonade/blob/c58c0c1119ea865896a033eeeaf17bd6ba8c5cb1/app/src/main/java/com/example/lemonade/MainActivity.kt)
+[MainActivity.kt](https://github.com/hirotomo-yamazaki/LemonadeApp/blob/0d3b1438bdec45054b6003e484141a0ab8a20dd8/app/src/main/java/com/example/lemonade/MainActivity.kt)
 
 [activity_main.xml](https://github.com/hirotomo-yamazaki/Lemonade/blob/3615a0ac154dde2c9ea14cb677d696973b694fb9/app/src/main/res/layout/activity_main.xml)
 
