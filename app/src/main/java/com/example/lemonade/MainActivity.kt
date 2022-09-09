@@ -66,12 +66,12 @@ class MainActivity : AppCompatActivity() {
      */
     //何杯作ったか数える変数
     private var lemonadeCount = 0
+
     /**
      * 自分で付け足した変数です。
      */
     //作ったレモネードの数を表示するTextView
     private var lemonadeMsg: TextView? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,8 +125,6 @@ class MainActivity : AppCompatActivity() {
             setViewElements()
             setMsg()
         }
-
-
     }
 
     /**
@@ -141,12 +139,10 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-
     /**
      * 画像がクリックされたらlemonadeStateを変更するメソッド
      */
     private fun clickLemonImage() {
-
         when (lemonadeState) {
             SELECT -> {
                 // lemonadeStateがSELECTの場合、SQUEEZEに変更し、絞る回数をpick()から取得
@@ -186,12 +182,10 @@ class MainActivity : AppCompatActivity() {
      * lemonadeStateに応じて、表示する画像を変更するメソッド
      */
     private fun setViewElements() {
-
         when (lemonadeState) {
             SELECT -> {
                 lemonText?.setText(R.string.lemon_select)
                 lemonImage?.setImageResource(R.drawable.lemon_tree)
-
             }
             SQUEEZE -> {
                 lemonText?.setText(R.string.lemon_squeeze)
@@ -205,7 +199,6 @@ class MainActivity : AppCompatActivity() {
                 lemonText?.setText(R.string.lemon_empty_glass)
                 lemonImage?.setImageResource(R.drawable.lemon_restart)
             }
-
         }
     }
 
@@ -221,7 +214,6 @@ class MainActivity : AppCompatActivity() {
             "You have made $lemonadeCount Lemonade!!"
         }
         lemonadeMsg!!.text = msg
-
     }
 
     /**
