@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Make Lemonade!!"
+            android:text="@string/lemonadeMsg"
             android:textSize="18sp" />
 
         <TextView
@@ -52,14 +52,14 @@
             android:id="@+id/change"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="36dp"
-            android:text="change" />
+            android:layout_marginEnd="36dp"
+            android:text="@string/button_left" />
 
         <Button
             android:id="@+id/reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="reset" />
+            android:text="@string/button_right" />
 
     </LinearLayout>
 
@@ -76,13 +76,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="reset" />
+            android:text="@string/button_right" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="36dp"
-            android:text="change" />
+            android:layout_marginStart="36dp"
+            android:text="@string/button_left" />
 
     </LinearLayout>
 
@@ -99,14 +99,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="change" />
+            android:text="@string/button_left" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="36dp"
-            android:text="reset" />
+            android:text="@string/button_right" />
 
     </LinearLayout>
 
@@ -123,13 +123,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="reset" />
+            android:text="@string/button_right" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="change" />
+            android:text="@string/button_left" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
