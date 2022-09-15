@@ -58,20 +58,12 @@ class MainActivity : AppCompatActivity() {
     private var lemonTree = LemonTree()
     private var lemonImage: ImageView? = null
     private var lemonText: TextView? = null
-    private var lemonButton: Button? = null
-    private var lemonButton2: Button? = null
 
     /**
      * 自分で付け足した変数です。
      */
     //何杯作ったか数える変数
     private var lemonadeCount = 0
-
-    /**
-     * 自分で付け足した変数です。
-     */
-    //作ったレモネードの数を表示するTextView
-    private var lemonadeMsg: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,37 +78,33 @@ class MainActivity : AppCompatActivity() {
         // === END IF STATEMENT ===
 
         lemonText = findViewById(R.id.text_action)
-
-        lemonadeMsg = findViewById(R.id.lemonadeMsg)
-
-        //CHANGEボタン
-        lemonButton = findViewById(R.id.button)
-        //RESETボタン
-        lemonButton2 = findViewById(R.id.button2)
-
         lemonImage = findViewById(R.id.image_lemon_state)
         // TODO:setViewElements()を呼び出し、初期画面を設定
         setViewElements()
 
-        lemonImage!!.setOnClickListener {
+        lemonImage?.setOnClickListener {
             // TODO:画像をクリックされたら、画像を設定するメソッドを呼び出す
             clickLemonImage()
         }
 
-        lemonImage!!.setOnLongClickListener {
+        lemonImage?.setOnLongClickListener {
             // TODO: 絞った回数を表示するメソッド呼び出し、 lemonadeStateがSQUEEZEだった場合、処理を行う
             showSnackbar()
         }
+        //CHANGEボタン
+        val changeButton = findViewById<Button>(R.id.change_button)
+        /* RESETボタン */
+        val resetButton = findViewById<Button>(R.id.reset_button)
 
         // CHANGEボタンが押された際の処理
-        lemonButton!!.setOnClickListener {
+        changeButton.setOnClickListener {
             // TODO:lemonadeStateをSELECTに戻し、最初のtree画像に戻す
             lemonadeState = SELECT
             setViewElements()
         }
 
         //RESETボタンが押された際の処理
-        lemonButton2!!.setOnClickListener {
+        resetButton.setOnClickListener {
             // TODO:lemonadeStateをSELECTに戻し、最初のtree画像に戻す
             lemonadeState = SELECT
 
@@ -206,14 +194,15 @@ class MainActivity : AppCompatActivity() {
      * lemonadeCountに応じて、作ったレモネードの杯数をメッセージで表示するメソッド
      */
     private fun setMsg() {
-        val msg = if (lemonadeCount == 0) {
+        val lemonadeMsg: TextView = findViewById(R.id.lemonadeMsg)
+        val msg: String = if (lemonadeCount == 0) {
             "Make Lemonade!!"
         } else if (lemonadeCount > 1) {
             "You have made $lemonadeCount Lemonades!!"
         } else {
             "You have made $lemonadeCount Lemonade!!"
         }
-        lemonadeMsg!!.text = msg
+        lemonadeMsg.text = msg
     }
 
     /**
