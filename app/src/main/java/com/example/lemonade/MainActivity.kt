@@ -17,6 +17,7 @@ package com.example.lemonade
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
@@ -32,24 +33,36 @@ class MainActivity : AppCompatActivity() {
     private val LEMONADE_STATE = "LEMONADE_STATE"
     private val LEMON_SIZE = "LEMON_SIZE"
     private val SQUEEZE_COUNT = "SQUEEZE_COUNT"
+
     // SELECT represents the "pick lemon" state
     private val SELECT = "select"
+
     // SQUEEZE represents the "squeeze lemon" state
     private val SQUEEZE = "squeeze"
+
     // DRINK represents the "drink lemonade" state
     private val DRINK = "drink"
+
     // RESTART represents the state where the lemonade has been drunk and the glass is empty
     private val RESTART = "restart"
+
     // Default the state to select
     private var lemonadeState = "select"
+
     // Default lemonSize to -1
     private var lemonSize = -1
+
     // Default the squeezeCount to -1
     private var squeezeCount = -1
 
     private var lemonTree = LemonTree()
-    private var lemonImage: ImageView? = null
+    private var lemonImage: ImageView = findViewById(R.id.image_lemon_state)
 
+    /**
+     * 自分で付け足した変数です。
+     */
+    //何杯作ったか数える変数
+    private var lemonadeCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,14 +76,39 @@ class MainActivity : AppCompatActivity() {
         }
         // === END IF STATEMENT ===
 
-        lemonImage = findViewById(R.id.image_lemon_state)
+        // TODO:setViewElements()を呼び出し、初期画面を設定
         setViewElements()
-        lemonImage!!.setOnClickListener {
-            // TODO: call the method that handles the state when the image is clicked
+
+        lemonImage.setOnClickListener {
+            // TODO:画像をクリックされたら、画像を設定するメソッドを呼び出す
+            clickLemonImage()
         }
-        lemonImage!!.setOnLongClickListener {
-            // TODO: replace 'false' with a call to the function that shows the squeeze count
-            false
+
+        lemonImage.setOnLongClickListener {
+            // TODO: 絞った回数を表示するメソッド呼び出し、 lemonadeStateがSQUEEZEだった場合、処理を行う
+            showSnackbar()
+        }
+        //CHANGEボタン
+        val changeButton = findViewById<Button>(R.id.change_button)
+        /* RESETボタン */
+        val resetButton = findViewById<Button>(R.id.reset_button)
+
+        // CHANGEボタンが押された際の処理
+        changeButton.setOnClickListener {
+            // TODO:lemonadeStateをSELECTに戻し、最初のtree画像に戻す
+            lemonadeState = SELECT
+            setViewElements()
+        }
+
+        //RESETボタンが押された際の処理
+        resetButton.setOnClickListener {
+            // TODO:lemonadeStateをSELECTに戻し、最初のtree画像に戻す
+            lemonadeState = SELECT
+
+            //作ったレモネードのカウントを０にリセット
+            lemonadeCount = 0
+            setViewElements()
+            setMsg()
         }
     }
 
@@ -87,51 +125,88 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Clicking will elicit a different response depending on the state.
-     * This method determines the state and proceeds with the correct action.
+     * 画像がクリックされたらlemonadeStateを変更するメソッド
      */
     private fun clickLemonImage() {
-        // TODO: use a conditional statement like 'if' or 'when' to track the lemonadeState
-        //  when the image is clicked we may need to change state to the next step in the
-        //  lemonade making progression (or at least make some changes to the current state in the
-        //  case of squeezing the lemon). That should be done in this conditional statement
+        when (lemonadeState) {
+            SELECT -> {
+                // lemonadeStateがSELECTの場合、SQUEEZEに変更し、絞る回数をpick()から取得
+                lemonadeState = SQUEEZE
+                lemonSize = lemonTree.pick()
+                squeezeCount = 0
+            }
+            SQUEEZE -> {
+                // lemonadeStateがSQUEEZEの時、絞った回数を1クリックごとにプラスし、
+                // 絞る回数をマイナス1する。
+                // 絞る回数のlemonSizeが０になった時、絞り終わったということでlemonadeStateをDRINKに変更
+                squeezeCount++
+                lemonSize--
+                if (lemonSize == 0) {
+                    lemonadeState = DRINK
+                }
+            }
+            DRINK -> {
+                lemonadeState = RESTART
+                lemonSize = -1
+            }
+            RESTART -> {
+                // lemonadeStateがRestart時にクリックされたら、初期状態のSelectに戻る。
+                lemonadeState = SELECT
 
-        // TODO: When the image is clicked in the SELECT state, the state should become SQUEEZE
-        //  - The lemonSize variable needs to be set using the 'pick()' method in the LemonTree class
-        //  - The squeezeCount should be 0 since we haven't squeezed any lemons just yet.
-
-        // TODO: When the image is clicked in the SQUEEZE state the squeezeCount needs to be
-        //  INCREASED by 1 and lemonSize needs to be DECREASED by 1.
-        //  - If the lemonSize has reached 0, it has been juiced and the state should become DRINK
-        //  - Additionally, lemonSize is no longer relevant and should be set to -1
-
-        // TODO: When the image is clicked in the DRINK state the state should become RESTART
-
-        // TODO: When the image is clicked in the RESTART state the state should become SELECT
-
-        // TODO: lastly, before the function terminates we need to set the view elements so that the
-        //  UI can reflect the correct state
+                // lemonadeを作ったので、メッセージを表示するメソッドを呼び出す。
+                lemonadeCount++
+                setMsg()
+            }
+        }
+        // lemonadeStateが更新されるたびに、画像も変化させる必要があるので、
+        // 画像がクリックされる度に、画像を表示するメソッドを毎回呼び出す。
+        setViewElements()
     }
 
     /**
-     * Set up the view elements according to the state.
+     * lemonadeStateに応じて、表示する画像を変更するメソッド
      */
     private fun setViewElements() {
-        val textAction: TextView = findViewById(R.id.text_action)
-        // TODO: set up a conditional that tracks the lemonadeState
+        val lemonText: TextView = findViewById(R.id.text_action)
+        when (lemonadeState) {
+            SELECT -> {
+                lemonText.setText(R.string.lemon_select)
+                lemonImage.setImageResource(R.drawable.lemon_tree)
+            }
+            SQUEEZE -> {
+                lemonText.setText(R.string.lemon_squeeze)
+                lemonImage.setImageResource(R.drawable.lemon_squeeze)
+            }
+            DRINK -> {
+                lemonText.setText(R.string.lemon_drink)
+                lemonImage.setImageResource(R.drawable.lemon_drink)
+            }
+            RESTART -> {
+                lemonText.setText(R.string.lemon_empty_glass)
+                lemonImage.setImageResource(R.drawable.lemon_restart)
+            }
+        }
+    }
 
-        // TODO: for each state, the textAction TextView should be set to the corresponding string from
-        //  the string resources file. The strings are named to match the state
-
-        // TODO: Additionally, for each state, the lemonImage should be set to the corresponding
-        //  drawable from the drawable resources. The drawables have the same names as the strings
-        //  but remember that they are drawables, not strings.
+    /**
+     * lemonadeCountに応じて、作ったレモネードの杯数をメッセージで表示するメソッド
+     */
+    private fun setMsg() {
+        val lemonadeMsg: TextView = findViewById(R.id.lemonadeMsg)
+        val msg: String = if (lemonadeCount == 0) {
+            "Make Lemonade!!"
+        } else if (lemonadeCount > 1) {
+            "You have made $lemonadeCount Lemonades!!"
+        } else {
+            "You have made $lemonadeCount Lemonade!!"
+        }
+        lemonadeMsg.text = msg
     }
 
     /**
      * === DO NOT ALTER THIS METHOD ===
      *
-     * Long clicking the lemon image will show how many times the lemon has been squeezed.
+     * 画像を長押しすることで、何回絞ったか表示するメソッド
      */
     private fun showSnackbar(): Boolean {
         if (lemonadeState != SQUEEZE) {
@@ -148,8 +223,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 /**
- * A Lemon tree class with a method to "pick" a lemon. The "size" of the lemon is randomized
- * and determines how many times a lemon needs to be squeezed before you get lemonade.
+ * ランダムに生成された数字によって、レモンを絞る回数を決定するメソッド
  */
 class LemonTree {
     fun pick(): Int {
