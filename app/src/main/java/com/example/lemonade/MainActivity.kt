@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private var squeezeCount = -1
 
     private var lemonTree = LemonTree()
-    private var lemonImage: ImageView? = null
+    private var lemonImage: ImageView = findViewById(R.id.image_lemon_state)
 
     /**
      * 自分で付け足した変数です。
@@ -76,16 +76,15 @@ class MainActivity : AppCompatActivity() {
         }
         // === END IF STATEMENT ===
 
-        lemonImage = findViewById(R.id.image_lemon_state)
         // TODO:setViewElements()を呼び出し、初期画面を設定
         setViewElements()
 
-        lemonImage?.setOnClickListener {
+        lemonImage.setOnClickListener {
             // TODO:画像をクリックされたら、画像を設定するメソッドを呼び出す
             clickLemonImage()
         }
 
-        lemonImage?.setOnLongClickListener {
+        lemonImage.setOnLongClickListener {
             // TODO: 絞った回数を表示するメソッド呼び出し、 lemonadeStateがSQUEEZEだった場合、処理を行う
             showSnackbar()
         }
@@ -172,19 +171,19 @@ class MainActivity : AppCompatActivity() {
         when (lemonadeState) {
             SELECT -> {
                 lemonText.setText(R.string.lemon_select)
-                lemonImage?.setImageResource(R.drawable.lemon_tree)
+                lemonImage.setImageResource(R.drawable.lemon_tree)
             }
             SQUEEZE -> {
                 lemonText.setText(R.string.lemon_squeeze)
-                lemonImage?.setImageResource(R.drawable.lemon_squeeze)
+                lemonImage.setImageResource(R.drawable.lemon_squeeze)
             }
             DRINK -> {
                 lemonText.setText(R.string.lemon_drink)
-                lemonImage?.setImageResource(R.drawable.lemon_drink)
+                lemonImage.setImageResource(R.drawable.lemon_drink)
             }
             RESTART -> {
                 lemonText.setText(R.string.lemon_empty_glass)
-                lemonImage?.setImageResource(R.drawable.lemon_restart)
+                lemonImage.setImageResource(R.drawable.lemon_restart)
             }
         }
     }
