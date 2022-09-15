@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
 
     private var lemonTree = LemonTree()
     private var lemonImage: ImageView? = null
-    private var lemonText: TextView? = null
 
     /**
      * 自分で付け足した変数です。
@@ -77,7 +76,6 @@ class MainActivity : AppCompatActivity() {
         }
         // === END IF STATEMENT ===
 
-        lemonText = findViewById(R.id.text_action)
         lemonImage = findViewById(R.id.image_lemon_state)
         // TODO:setViewElements()を呼び出し、初期画面を設定
         setViewElements()
@@ -170,21 +168,22 @@ class MainActivity : AppCompatActivity() {
      * lemonadeStateに応じて、表示する画像を変更するメソッド
      */
     private fun setViewElements() {
+        val lemonText: TextView = findViewById(R.id.text_action)
         when (lemonadeState) {
             SELECT -> {
-                lemonText?.setText(R.string.lemon_select)
+                lemonText.setText(R.string.lemon_select)
                 lemonImage?.setImageResource(R.drawable.lemon_tree)
             }
             SQUEEZE -> {
-                lemonText?.setText(R.string.lemon_squeeze)
+                lemonText.setText(R.string.lemon_squeeze)
                 lemonImage?.setImageResource(R.drawable.lemon_squeeze)
             }
             DRINK -> {
-                lemonText?.setText(R.string.lemon_drink)
+                lemonText.setText(R.string.lemon_drink)
                 lemonImage?.setImageResource(R.drawable.lemon_drink)
             }
             RESTART -> {
-                lemonText?.setText(R.string.lemon_empty_glass)
+                lemonText.setText(R.string.lemon_empty_glass)
                 lemonImage?.setImageResource(R.drawable.lemon_restart)
             }
         }
